@@ -3,6 +3,7 @@ package tasky.controllers;
 import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tasky.dtos.CreateTaskDTO;
 import tasky.dtos.UpdateTaskDTO;
 import tasky.models.Task;
 import tasky.repositories.TaskRepository;
@@ -24,6 +25,12 @@ public class TaskController {
     @GetMapping("/tasks/{taskId}")
     public Task getTask(@PathVariable("taskId") String taskId){
         return taskRepository.getById(UUID.fromString(taskId));
+    }
+
+    @PostMapping("/tasks")
+    public Task createTask(@RequestBody CreateTaskDTO createTaskDTO){
+        Task task = taskRepository.create(createTaskDTO);
+        return task;
     }
 
     @PatchMapping("/tasks/{taskId}")
