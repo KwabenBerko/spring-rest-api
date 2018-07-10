@@ -84,4 +84,9 @@ public class TaskRepository {
         task.setCompleted(updateTaskDTO.isCompleted());
         return task;
     }
+
+    public void delete(UUID uuid){
+        Task task = getById(uuid);
+        TASKS.remove(task);
+    }
 }

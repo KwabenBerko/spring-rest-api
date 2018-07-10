@@ -2,6 +2,7 @@ package tasky.controllers;
 
 import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import tasky.dtos.CreateTaskDTO;
 import tasky.dtos.UpdateTaskDTO;
@@ -36,6 +37,12 @@ public class TaskController {
     @PatchMapping("/tasks/{taskId}")
     public Task updateTask(@PathVariable("taskId") String taskId, @RequestBody UpdateTaskDTO updateTaskDTO){
         return taskRepository.update(UUID.fromString(taskId), updateTaskDTO);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/tasks/{taskId}")
+    public void deleteTask(@PathVariable("taskId") String taskId){
+        taskRepository.delete(UUID.fromString(taskId));
     }
 
 }
